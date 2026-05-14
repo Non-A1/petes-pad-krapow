@@ -9,54 +9,52 @@ body {
     color: white;
     margin: 0;
     overflow: hidden;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* GESTURE CURSOR */
 #gesture-cursor {
     position: fixed;
-    width: 25px;
-    height: 25px;
-    background: rgba(212, 175, 55, 0.6);
+    width: 30px;
+    height: 30px;
+    background: rgba(212, 175, 55, 0.4);
     border: 2px solid var(--gold);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: transform 0.1s ease;
+    transform: translate(-50%, -50%);
+    transition: width 0.1s, height 0.1s;
 }
 
 #gesture-cursor.clicking {
-    transform: scale(0.6);
+    width: 15px;
+    height: 15px;
     background: var(--red);
 }
 
-/* BAMBOO DOORS */
-#door-container { position: fixed; width: 100vw; height: 100vh; perspective: 1500px; z-index: 100; display:none; }
-#door-container.active-stage { display: flex; }
-.door { position: absolute; width: 50%; height: 100%; background: #3d2b1f; transition: transform 1.5s; border: 2px solid #222; }
+/* DOORS */
+#door-container { position: fixed; width: 100vw; height: 100vh; perspective: 1500px; z-index: 100; display: flex; }
+.door { position: absolute; width: 50%; height: 100%; background: #3d2b1f; transition: transform 1.5s; z-index: 10; border-right: 2px solid #222; }
 .left-door { left: 0; transform-origin: left; }
 .right-door { right: 0; transform-origin: right; }
 .doors-open .left-door { transform: rotateY(-100deg); }
 .doors-open .right-door { transform: rotateY(100deg); }
 
-/* CHILI ANIMATION */
-#chili-container {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    overflow: hidden;
+.door-overlay {
+    position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
+    justify-content: center; align-items: center; z-index: 15; background: rgba(0,0,0,0.5);
 }
 
-.chili-icon {
-    position: absolute;
-    width: 30px;
-    animation: fall linear infinite;
+/* MENU UI */
+.hidden { display: none !important; }
+.menu-card { background: #1e1e1e; padding: 40px; border-radius: 20px; text-align: center; max-width: 900px; margin: 5vh auto; }
+.menu-row { display: flex; justify-content: space-around; margin-bottom: 30px; }
+.options { display: flex; flex-direction: column; gap: 10px; }
+
+.interactable {
+    padding: 15px 25px; background: #333; border: 1px solid var(--gold); color: white; cursor: pointer;
 }
 
-@keyframes fall {
-    to { transform: translateY(100vh) rotate(360deg); }
-}
+.interactable.hovered { background: var(--gold); color: black; transform: scale(1.1); }
 
-.hidden { display: none; }
-.interactable { transition: all 0.3s; }
-.interactable.hovered { transform: scale(1.1); background: var(--gold); color: black; }
+#dish-image { width: 300px; border-radius: 15px; margin-top: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
