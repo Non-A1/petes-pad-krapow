@@ -5,31 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pete's Pad Krapow | Interactive Experience</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
-    <!-- MediaPipe Vision Library -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0"></script>
 </head>
 <body>
 
-    <!-- STAGE 1: THE BAMBOO DOORS -->
+    <!-- STAGE 1: STOREFRONT -->
     <div id="door-container">
-        <div class="door left-door"></div>
-        <div class="door right-door"></div>
+        <div class="storefront-bg"></div> 
         <div class="door-overlay">
-            <h1 class="glow-text">Welcome to Thailand</h1>
+            <h1 class="glow-text">Pete's Pad Krapow</h1>
             <button id="enter-btn">ENTER RESTAURANT</button>
         </div>
     </div>
 
-    <!-- STAGE 2: THE VIDEO INTRO -->
+    <!-- STAGE 2: BEACH REVEAL VIDEO -->
     <div id="video-container" class="hidden">
-        <video id="chef-video" width="100%" playsinline>
-            <source src="videos/chef-pete-intro.mp4" type="video/mp4">
+        <video id="reveal-video" width="100%" playsinline>
+            <source src="videos/thai-beach-reveal.mp4" type="video/mp4">
         </video>
     </div>
 
-    <!-- STAGE 3: THE INTERACTIVE MENU & CAMERA -->
+    <!-- STAGE 3: INTERACTIVE MENU -->
     <section id="menu" class="hidden">
         <div id="camera-preview">
             <video id="webcam" autoplay playsinline></video>
@@ -37,8 +34,7 @@
         </div>
 
         <div class="menu-card">
-            <h2 class="menu-title">Pete's Pad Krapow</h2>
-            
+            <h2 class="menu-title">Chef Pete's Menu</h2>
             <div class="selection-group">
                 <h3>Select Your Protein</h3>
                 <div class="options">
@@ -52,14 +48,10 @@
             <div id="display-area" class="hidden">
                 <img id="dish-image" src="" alt="Selected Dish">
                 <p id="dish-desc" class="glow-text"></p>
-                <div class="tech-specs">
-                    <span id="temp-stat"></span> | <span id="spice-stat"></span>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Background Audio -->
     <audio id="bg-music" loop>
         <source src="audio/thai-ambient.mp3" type="audio/mpeg">
     </audio>
