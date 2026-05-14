@@ -3,71 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pete's Pad Krapow | Gesture Control</title>
+    <title>Pete's Pad Krapow | Interactive Experience</title>
     <link rel="stylesheet" href="style.css">
-    <!-- MediaPipe Dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- MediaPipe Vision Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0"></script>
 </head>
 <body>
 
-    <!-- Gesture Cursor -->
-    <div id="gesture-cursor"></div>
-
-    <!-- Hidden Video for MediaPipe Processing -->
-    <video id="input-video" style="display:none;"></video>
-
     <!-- STAGE 1: THE BAMBOO DOORS -->
-    <div id="door-container" class="active-stage">
+    <div id="door-container">
         <div class="door left-door"></div>
         <div class="door right-door"></div>
         <div class="door-overlay">
-            <h1>Welcome to Thailand</h1>
-            <p>Point at the button to enter</p>
-            <button id="enter-btn" class="interactable">ENTER RESTAURANT</button>
+            <h1 class="glow-text">Welcome to Thailand</h1>
+            <button id="enter-btn">ENTER RESTAURANT</button>
         </div>
     </div>
 
-    <!-- STAGE 2: VIDEO INTRO -->
+    <!-- STAGE 2: THE VIDEO INTRO -->
     <div id="video-container" class="hidden">
-        <video id="chef-video" width="100%">
+        <video id="chef-video" width="100%" playsinline>
             <source src="videos/chef-pete-intro.mp4" type="video/mp4">
         </video>
     </div>
 
-    <!-- STAGE 3: THE INTERACTIVE MENU -->
+    <!-- STAGE 3: THE INTERACTIVE MENU & CAMERA -->
     <section id="menu" class="hidden">
+        <div id="camera-preview">
+            <video id="webcam" autoplay playsinline></video>
+            <div id="virtual-cursor"></div>
+        </div>
+
         <div class="menu-card">
-            <h2>Pete's Selection</h2>
-            <div class="menu-row">
-                <div class="selection-column">
-                    <h3>1. Protein</h3>
-                    <div class="options">
-                        <button class="menu-opt interactable" data-type="protein" data-val="chicken">Chicken</button>
-                        <button class="menu-opt interactable" data-type="protein" data-val="pork">Pork</button>
-                        <button class="menu-opt interactable" data-type="protein" data-val="beef">Beef</button>
-                        <button class="menu-opt interactable" data-type="protein" data-val="tofu">Tofu</button>
-                    </div>
-                </div>
-                <div class="selection-column">
-                    <h3>2. Spice Level</h3>
-                    <div class="options">
-                        <button class="menu-opt interactable spice-btn" data-type="spice" data-chilis="1">Lvl 1 - Wok n' the Park</button>
-                        <button class="menu-opt interactable spice-btn" data-type="spice" data-chilis="5">Lvl 2 - Wok n' Roll</button>
-                        <button class="menu-opt interactable spice-btn" data-type="spice" data-chilis="10">Lvl 3 - Wok in da Hell</button>
-                        <button class="menu-opt interactable spice-btn" data-type="spice" data-chilis="30">Lvl 4 - Wok da Fok</button>
-                    </div>
+            <h2 class="menu-title">Pete's Pad Krapow</h2>
+            
+            <div class="selection-group">
+                <h3>Select Your Protein</h3>
+                <div class="options">
+                    <button class="menu-opt" data-type="protein" data-val="chicken">Chicken</button>
+                    <button class="menu-opt" data-type="protein" data-val="pork">Pork</button>
+                    <button class="menu-opt" data-type="protein" data-val="beef">Beef</button>
+                    <button class="menu-opt" data-type="protein" data-val="tofu">Tofu (Vegetarian)</button>
                 </div>
             </div>
 
             <div id="display-area" class="hidden">
-                <div id="chili-container"></div>
-                <img id="dish-image" src="" alt="">
-                <h3 id="dish-desc"></h3>
+                <img id="dish-image" src="" alt="Selected Dish">
+                <p id="dish-desc" class="glow-text"></p>
+                <div class="tech-specs">
+                    <span id="temp-stat"></span> | <span id="spice-stat"></span>
+                </div>
             </div>
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <!-- Background Audio -->
+    <audio id="bg-music" loop>
+        <source src="audio/thai-ambient.mp3" type="audio/mpeg">
+    </audio>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
