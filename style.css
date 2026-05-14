@@ -14,15 +14,16 @@ body, html {
 
 .hidden { display: none !important; }
 
-/* STOREFRONT LAYERING */
+/* STOREFRONT BACKGROUND */
 #door-container {
     position: fixed; width: 100vw; height: 100vh;
     z-index: 100;
 }
 
 .storefront-bg {
-    position: absolute; width: 100%; height: 100%;
-    background: url('images/storefront.jpg') no-repeat center center/cover;
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #222 url('images/storefront.jpg') no-repeat center center/cover;
     z-index: 1;
 }
 
@@ -41,9 +42,15 @@ body, html {
     font-size: 1.5rem;
     cursor: pointer;
     z-index: 20;
+    transition: 0.3s;
 }
 
-/* VIDEO CONTAINER */
+#enter-btn:hover {
+    background: var(--gold);
+    color: black;
+}
+
+/* VIDEO LAYER */
 #video-container {
     position: fixed; top: 0; left: 0;
     width: 100vw; height: 100vh;
@@ -52,16 +59,18 @@ body, html {
 
 #reveal-video {
     width: 100%; height: 100%;
-    object-fit: cover; /* Important: fills the screen */
+    object-fit: cover;
 }
 
-/* MENU & GESTURE UI */
+/* MENU & CAMERA */
 #camera-preview {
     position: fixed; bottom: 20px; right: 20px;
     width: 150px; height: 150px; border-radius: 50%;
     border: 3px solid var(--gold); overflow: hidden;
     transform: scaleX(-1); z-index: 999;
 }
+
+#webcam { width: auto; height: 100%; }
 
 #virtual-cursor {
     position: fixed; width: 15px; height: 15px;
@@ -73,4 +82,15 @@ body, html {
     max-width: 800px; margin: 40px auto;
     background: rgba(20, 20, 20, 0.95);
     padding: 30px; border: 1px solid var(--gold);
+    text-align: center;
+}
+
+#dish-image {
+    width: 100%; max-width: 500px; margin-top: 20px;
+    border-radius: 10px; border: 1px solid var(--gold);
+}
+
+.glow-text {
+    font-family: 'Playfair Display', serif;
+    text-shadow: 0 0 10px var(--gold);
 }
