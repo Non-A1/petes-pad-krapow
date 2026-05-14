@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <!-- MediaPipe Dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -15,8 +14,8 @@
     <!-- Gesture Cursor -->
     <div id="gesture-cursor"></div>
 
-    <!-- Camera Feed (Hidden) -->
-    <video id="input-video" class="hidden"></video>
+    <!-- Hidden Video for MediaPipe Processing -->
+    <video id="input-video" style="display:none;"></video>
 
     <!-- STAGE 1: THE BAMBOO DOORS -->
     <div id="door-container" class="active-stage">
@@ -24,7 +23,7 @@
         <div class="door right-door"></div>
         <div class="door-overlay">
             <h1>Welcome to Thailand</h1>
-            <p>Hover over the button to enter</p>
+            <p>Point at the button to enter</p>
             <button id="enter-btn" class="interactable">ENTER RESTAURANT</button>
         </div>
     </div>
@@ -40,7 +39,6 @@
     <section id="menu" class="hidden">
         <div class="menu-card">
             <h2>Pete's Selection</h2>
-            
             <div class="menu-row">
                 <div class="selection-column">
                     <h3>1. Protein</h3>
@@ -51,7 +49,6 @@
                         <button class="menu-opt interactable" data-type="protein" data-val="tofu">Tofu</button>
                     </div>
                 </div>
-
                 <div class="selection-column">
                     <h3>2. Spice Level</h3>
                     <div class="options">
@@ -63,10 +60,10 @@
                 </div>
             </div>
 
-            <div id="dish-preview-area">
-                <div id="chili-container"></div> <!-- Chili animations happen here -->
+            <div id="display-area" class="hidden">
+                <div id="chili-container"></div>
                 <img id="dish-image" src="" alt="">
-                <h3 id="order-confirm"></h3>
+                <h3 id="dish-desc"></h3>
             </div>
         </div>
     </section>
