@@ -1,54 +1,44 @@
 const enterBtn = document.getElementById('enter-btn');
-const music = document.getElementById('thai-music');
-const narration = document.getElementById('narration');
+const doorContainer = document.getElementById('door-container');
+const videoContainer = document.getElementById('video-container');
+const chefVideo = document.getElementById('chef-video');
+const menuSection = document.getElementById('menu');
 
+// 1. OPEN DOORS
 enterBtn.addEventListener('click', () => {
-    // 1. Switch Sections
-    document.getElementById('splash').classList.remove('active');
-    document.getElementById('narrative').classList.add('active', 'fade-in');
-
-    // 2. Start Audio (Browsers allow it now because of the click)
-    music.volume = 0.3;
-    music.play();
-    narration.play();
-
-    // 3. Narrative Timeline
+    document.querySelector('.door-overlay').style.opacity = '0';
+    doorContainer.classList.add('doors-open');
+    
+    // Wait for door animation, then start video
     setTimeout(() => {
-        document.getElementById('narrator-text').classList.add('hidden');
-        document.getElementById('chef-pete').classList.remove('hidden');
-    }, 8000); // Wait for history narration to finish
-
-    setTimeout(() => {
-        document.getElementById('narrative').classList.remove('active');
-        document.getElementById('menu').classList.remove('hidden');
-        document.getElementById('menu').classList.add('active');
-    }, 12000); // Reveal menu after Chef Intro
+        doorContainer.classList.add('hidden');
+        videoContainer.classList.remove('hidden');
+        chefVideo.play();
+    }, 1500);
 });
 
-// Menu Selection Logic
-let selection = { protein: null, spice: null };
+// 2. VIDEO ENDS -> SHOW MENU
+chefVideo.onended = () => {
+    videoContainer.classList.add('hidden');
+    menuSection.classList.remove('hidden');
+};
 
-document.querySelectorAll('.opt-btn').forEach(button => {
-    button.addEventListener('click', (e) => {
-        const type = e.target.getAttribute('data-type');
-        const val = e.target.innerText;
+// 3. MENU IMAGE LOGIC
+const dishData = {
+    chicken: { img: 'images/chicken-pad-krapow.jpg', desc: 'Minced chicken sizzled with holy basil.' },
+    pork:    { img: 'images/pork-pad-krapow.jpg',    desc: 'Classic pork mince with crispy edges.' },
+    beef:    { img: 'images/beef-pad-krapow.jpg',    desc: 'Bold beef strips in a dark soy glaze.' },
+    tofu:    { img: 'images/tofu-pad-krapow.jpg',    desc: 'Firm tofu and mushrooms with garden basil.' }
+};
 
-        // Toggle Active Class
-        document.querySelectorAll(`.opt-btn[data-type="${type}"]`).forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-
-        // Update Selection
-        if (type === 'protein') selection.protein = val;
-        if (type === 'spice') selection.spice = val;
-
-        // Update Summary if both are selected
-        if (selection.protein && selection.spice) {
-            document.getElementById('order-summary').classList.remove('hidden');
-            document.getElementById('final-dish-text').innerText = 
-                `Your ${selection.protein} Pad Krapow is being prepared at Level ${selection.spice}!`;
-            
-            // Logic to change image could go here:
-            // document.getElementById('dish-img').src = `images/${selection.protein}-${selection.spice}.jpg`;
-        }
+document.querySelectorAll('.menu-opt').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const protein = e.target.getAttribute('data-val');
+        const display = document.getElementById('display-area');
+        
+        document.getElementById('dish-image').src = dishData[protein].img;
+        document.getElementById('dish-desc').innerText = dishData[protein].desc;
+        
+        display.classList.remove('hidden');
     });
 });
