@@ -1,6 +1,5 @@
 :root {
     --gold: #d4af37;
-    --deep-red: #8b0000;
     --charcoal: #0a0a0a;
     --smoke: #f4f4f4;
 }
@@ -15,69 +14,63 @@ body, html {
 
 .hidden { display: none !important; }
 
-/* 3D BAMBOO DOORS */
+/* STOREFRONT LAYERING */
 #door-container {
     position: fixed; width: 100vw; height: 100vh;
-    perspective: 2000px; z-index: 100;
+    z-index: 100;
 }
 
-.door {
-    position: absolute; width: 50%; height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/bamboo-texture.jpg') center/cover;
-    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 4px solid #2d1e14;
+.storefront-bg {
+    position: absolute; width: 100%; height: 100%;
+    background: url('images/storefront.jpg') no-repeat center center/cover;
+    z-index: 1;
 }
-
-.left-door { left: 0; transform-origin: left; }
-.right-door { right: 0; transform-origin: right; }
-
-.doors-open .left-door { transform: rotateY(-110deg); }
-.doors-open .right-door { transform: rotateY(110deg); }
 
 .door-overlay {
     position: absolute; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    background: rgba(0,0,0,0.5); z-index: 101;
+    background: rgba(0,0,0,0.4); z-index: 10;
+    transition: opacity 0.8s;
 }
 
-/* INTERACTIVE MENU */
-.menu-card {
-    max-width: 900px; margin: 50px auto;
-    background: rgba(30, 30, 30, 0.9);
-    padding: 40px; border-radius: 15px; border: 1px solid var(--gold);
-    text-align: center;
+#enter-btn {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    padding: 20px 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 20;
 }
 
-.menu-opt {
-    background: #222; border: 1px solid #444; color: white;
-    padding: 15px 25px; margin: 10px; cursor: pointer; transition: 0.3s;
+/* VIDEO CONTAINER */
+#video-container {
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: black; z-index: 50;
 }
 
-.menu-opt.hovering { border-color: var(--gold); transform: scale(1.05); }
-.menu-opt.selected { background: var(--deep-red); border-color: var(--gold); }
+#reveal-video {
+    width: 100%; height: 100%;
+    object-fit: cover; /* Important: fills the screen */
+}
 
-/* GESTURE CAMERA OVERLAY */
+/* MENU & GESTURE UI */
 #camera-preview {
     position: fixed; bottom: 20px; right: 20px;
-    width: 180px; height: 180px; border-radius: 50%;
+    width: 150px; height: 150px; border-radius: 50%;
     border: 3px solid var(--gold); overflow: hidden;
     transform: scaleX(-1); z-index: 999;
 }
 
-#webcam { width: auto; height: 100%; }
-
 #virtual-cursor {
-    position: fixed; width: 20px; height: 20px;
+    position: fixed; width: 15px; height: 15px;
     background: var(--gold); border-radius: 50%;
-    pointer-events: none; opacity: 0.7; z-index: 1000;
+    pointer-events: none; z-index: 1000;
 }
 
-#dish-image {
-    width: 100%; max-width: 600px; border-radius: 10px;
-    margin-top: 20px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
-}
-
-.glow-text {
-    font-family: 'Playfair Display', serif;
-    text-shadow: 0 0 10px var(--gold);
+.menu-card {
+    max-width: 800px; margin: 40px auto;
+    background: rgba(20, 20, 20, 0.95);
+    padding: 30px; border: 1px solid var(--gold);
 }
