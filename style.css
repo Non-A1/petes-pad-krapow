@@ -1,60 +1,83 @@
 :root {
     --gold: #d4af37;
-    --red: #ff4d4d;
-    --charcoal: #121212;
+    --deep-red: #8b0000;
+    --charcoal: #0a0a0a;
+    --smoke: #f4f4f4;
 }
 
-body {
-    background: var(--charcoal);
-    color: white;
-    margin: 0;
+body, html {
+    margin: 0; padding: 0;
+    background-color: var(--charcoal);
+    color: var(--smoke);
+    font-family: 'Montserrat', sans-serif;
     overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* GESTURE CURSOR */
-#gesture-cursor {
-    position: fixed;
-    width: 30px;
-    height: 30px;
-    background: rgba(212, 175, 55, 0.4);
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.1s, height 0.1s;
+.hidden { display: none !important; }
+
+/* 3D BAMBOO DOORS */
+#door-container {
+    position: fixed; width: 100vw; height: 100vh;
+    perspective: 2000px; z-index: 100;
 }
 
-#gesture-cursor.clicking {
-    width: 15px;
-    height: 15px;
-    background: var(--red);
+.door {
+    position: absolute; width: 50%; height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/bamboo-texture.jpg') center/cover;
+    transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 4px solid #2d1e14;
 }
 
-/* DOORS */
-#door-container { position: fixed; width: 100vw; height: 100vh; perspective: 1500px; z-index: 100; display: flex; }
-.door { position: absolute; width: 50%; height: 100%; background: #3d2b1f; transition: transform 1.5s; z-index: 10; border-right: 2px solid #222; }
 .left-door { left: 0; transform-origin: left; }
 .right-door { right: 0; transform-origin: right; }
-.doors-open .left-door { transform: rotateY(-100deg); }
-.doors-open .right-door { transform: rotateY(100deg); }
+
+.doors-open .left-door { transform: rotateY(-110deg); }
+.doors-open .right-door { transform: rotateY(110deg); }
 
 .door-overlay {
-    position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
-    justify-content: center; align-items: center; z-index: 15; background: rgba(0,0,0,0.5);
+    position: absolute; width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    background: rgba(0,0,0,0.5); z-index: 101;
 }
 
-/* MENU UI */
-.hidden { display: none !important; }
-.menu-card { background: #1e1e1e; padding: 40px; border-radius: 20px; text-align: center; max-width: 900px; margin: 5vh auto; }
-.menu-row { display: flex; justify-content: space-around; margin-bottom: 30px; }
-.options { display: flex; flex-direction: column; gap: 10px; }
-
-.interactable {
-    padding: 15px 25px; background: #333; border: 1px solid var(--gold); color: white; cursor: pointer;
+/* INTERACTIVE MENU */
+.menu-card {
+    max-width: 900px; margin: 50px auto;
+    background: rgba(30, 30, 30, 0.9);
+    padding: 40px; border-radius: 15px; border: 1px solid var(--gold);
+    text-align: center;
 }
 
-.interactable.hovered { background: var(--gold); color: black; transform: scale(1.1); }
+.menu-opt {
+    background: #222; border: 1px solid #444; color: white;
+    padding: 15px 25px; margin: 10px; cursor: pointer; transition: 0.3s;
+}
 
-#dish-image { width: 300px; border-radius: 15px; margin-top: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+.menu-opt.hovering { border-color: var(--gold); transform: scale(1.05); }
+.menu-opt.selected { background: var(--deep-red); border-color: var(--gold); }
+
+/* GESTURE CAMERA OVERLAY */
+#camera-preview {
+    position: fixed; bottom: 20px; right: 20px;
+    width: 180px; height: 180px; border-radius: 50%;
+    border: 3px solid var(--gold); overflow: hidden;
+    transform: scaleX(-1); z-index: 999;
+}
+
+#webcam { width: auto; height: 100%; }
+
+#virtual-cursor {
+    position: fixed; width: 20px; height: 20px;
+    background: var(--gold); border-radius: 50%;
+    pointer-events: none; opacity: 0.7; z-index: 1000;
+}
+
+#dish-image {
+    width: 100%; max-width: 600px; border-radius: 10px;
+    margin-top: 20px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+.glow-text {
+    font-family: 'Playfair Display', serif;
+    text-shadow: 0 0 10px var(--gold);
+}
