@@ -3,79 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pete's Pad Krapow | The Soul of Thailand</title>
+    <title>Pete's Pad Krapow | Gesture Control</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <!-- MediaPipe Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <!-- SECTION 1: SPLASH PAGE -->
-    <section id="splash" class="active">
-        <div class="overlay">
+    <!-- Gesture Cursor -->
+    <div id="gesture-cursor"></div>
+
+    <!-- Camera Feed (Hidden) -->
+    <video id="input-video" class="hidden"></video>
+
+    <!-- STAGE 1: THE BAMBOO DOORS -->
+    <div id="door-container" class="active-stage">
+        <div class="door left-door"></div>
+        <div class="door right-door"></div>
+        <div class="door-overlay">
             <h1>Welcome to Thailand</h1>
-            <button id="enter-btn">ENTER</button>
+            <p>Hover over the button to enter</p>
+            <button id="enter-btn" class="interactable">ENTER RESTAURANT</button>
         </div>
-    </section>
+    </div>
 
-    <!-- SECTION 2: THE NARRATIVE & CHEF INTRO -->
-    <section id="narrative">
-        <div class="content-wrapper">
-            <div id="narrator-text">
-                <p class="history-text">In the heart of every Thai kitchen, there is a rhythm—the crush of garlic, the snap of holy basil, and the roar of the flame...</p>
-            </div>
-            
-            <div id="chef-pete" class="hidden">
-                <img src="chef-pete-animation.gif" alt="Chef Pete cooking" class="chef-img">
-                <h2>I'm Chef Pete. Let's build your perfect dish.</h2>
-            </div>
-        </div>
-    </section>
+    <!-- STAGE 2: VIDEO INTRO -->
+    <div id="video-container" class="hidden">
+        <video id="chef-video" width="100%">
+            <source src="videos/chef-pete-intro.mp4" type="video/mp4">
+        </video>
+    </div>
 
-    <!-- SECTION 3: THE MENU -->
+    <!-- STAGE 3: THE INTERACTIVE MENU -->
     <section id="menu" class="hidden">
-        <div class="menu-container">
-            <h2 class="menu-title">Pete's Pad Krapow</h2>
+        <div class="menu-card">
+            <h2>Pete's Selection</h2>
             
-            <div class="selection-group">
-                <h3>1. Select Protein</h3>
-                <div class="options">
-                    <button class="opt-btn" data-type="protein" data-value="Chicken">Chicken</button>
-                    <button class="opt-btn" data-type="protein" data-value="Pork">Pork</button>
-                    <button class="opt-btn" data-type="protein" data-value="Beef">Beef</button>
-                    <button class="opt-btn" data-type="protein" data-value="Tofu">Vegetarian</button>
+            <div class="menu-row">
+                <div class="selection-column">
+                    <h3>1. Protein</h3>
+                    <div class="options">
+                        <button class="menu-opt interactable" data-type="protein" data-val="chicken">Chicken</button>
+                        <button class="menu-opt interactable" data-type="protein" data-val="pork">Pork</button>
+                        <button class="menu-opt interactable" data-type="protein" data-val="beef">Beef</button>
+                        <button class="menu-opt interactable" data-type="protein" data-val="tofu">Tofu</button>
+                    </div>
+                </div>
+
+                <div class="selection-column">
+                    <h3>2. Spice Level</h3>
+                    <div class="options">
+                        <button class="menu-opt interactable spice-btn" data-type="spice" data-chilis="1">Lvl 1 - Wok n' the Park</button>
+                        <button class="menu-opt interactable spice-btn" data-type="spice" data-chilis="5">Lvl 2 - Wok n' Roll</button>
+                        <button class="menu-opt interactable spice-btn" data-type="spice" data-chilis="10">Lvl 3 - Wok in da Hell</button>
+                        <button class="menu-opt interactable spice-btn" data-type="spice" data-chilis="30">Lvl 4 - Wok da Fok</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="selection-group">
-                <h3>2. Select Spice Level</h3>
-                <div class="options spice-grid">
-                    <button class="opt-btn spice" data-type="spice" data-level="1">1 - Thai Town LA (1 Chili)</button>
-                    <button class="opt-btn spice" data-type="spice" data-level="2">2 - Pattaya (5 Chilis)</button>
-                    <button class="opt-btn spice" data-type="spice" data-level="3">3 - Phuket (10 Chilis)</button>
-                    <button class="opt-btn spice" data-type="spice" data-level="4">4 - Krabi (20 Chilis)</button>
-                    <button class="opt-btn spice" data-type="spice" data-level="5">5 - Bangkok (30 Chilis)</button>
-                </div>
-            </div>
-
-            <div id="order-summary" class="hidden">
-                <hr>
-                <h3>Your Selection:</h3>
-                <p id="final-dish-text">Pad Krapow with [Protein] at [Level] heat.</p>
-                <div id="dish-preview">
-                    <!-- Dynamic Image for Selected Dish -->
-                    <img id="dish-img" src="placeholder-dish.jpg" alt="Your Pad Krapow">
-                </div>
+            <div id="dish-preview-area">
+                <div id="chili-container"></div> <!-- Chili animations happen here -->
+                <img id="dish-image" src="" alt="">
+                <h3 id="order-confirm"></h3>
             </div>
         </div>
     </section>
-
-    <!-- AUDIO ELEMENTS (Hidden) -->
-    <audio id="thai-music" loop>
-        <source src="thai-ambient-music.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="narration">
-        <source src="narrator-voiceover.mp3" type="audio/mpeg">
-    </audio>
 
     <script src="script.js"></script>
 </body>
