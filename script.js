@@ -17,20 +17,15 @@ async function initMediaPipe() {
 }
 initMediaPipe();
 
-// TRANSITION: ENTER -> BEACH VIDEO
+// 1. Enter Button Sequence
 enterBtn.addEventListener('click', () => {
-    // 1. Play background music
     document.getElementById('bg-music').play();
-    
-    // 2. Hide storefront and show video
     document.getElementById('door-container').classList.add('hidden');
     document.getElementById('video-container').classList.remove('hidden');
-    
-    // 3. Play the cinematic reveal
     revealVideo.play();
 });
 
-// TRANSITION: VIDEO ENDS -> MENU
+// 2. Video End -> Menu Reveal
 revealVideo.onended = () => {
     document.getElementById('video-container').classList.add('hidden');
     document.getElementById('menu').classList.remove('hidden');
@@ -67,6 +62,7 @@ const dishes = {
     tofu:    { img: 'images/tofu-pad-krapow.jpg',    desc: 'Golden Tofu with King Oyster Mushrooms' }
 };
 
+let hoverTimer;
 function checkSelection(x, y) {
     const el = document.elementFromPoint(x, y);
     if (el && el.classList.contains('menu-opt')) {
