@@ -67,11 +67,11 @@ body, html {
 
 #menu-base { width: 100%; height: 100%; object-fit: contain; }
 
-/* DISH LIST - ADJUSTED 3 LINES DOWN */
+/* DISH LIST - ADJUSTED 5 LINES DOWN */
 #dish-list {
     position: absolute; 
     top: 25%; 
-    margin-top: 3.5rem; /* This pushes the text down exactly as requested */
+    margin-top: 5.5rem; /* This pushes the text down exactly as requested */
     width: 100%; 
     list-style: none; 
     padding: 0; 
