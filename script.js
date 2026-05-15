@@ -8,7 +8,7 @@ const cursor = document.getElementById("virtual-cursor");
 let handLandmarker;
 let lastVideoTime = -1;
 
-// Initialize AI
+// 1. Initialize Hand Tracking
 async function initMediaPipe() {
     const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm");
     handLandmarker = await HandLandmarker.createFromOptions(vision, {
@@ -18,7 +18,7 @@ async function initMediaPipe() {
 }
 initMediaPipe();
 
-// Step 1: Click Enter -> Play Video
+// 2. Start Sequence
 enterBtn.addEventListener('click', () => {
     document.getElementById('bg-music').play();
     document.getElementById('door-container').classList.add('hidden');
@@ -26,7 +26,7 @@ enterBtn.addEventListener('click', () => {
     revealVideo.play();
 });
 
-// Step 2: Video Ends -> Show Menu
+// 3. Reveal Menu after Video
 revealVideo.onended = () => {
     document.getElementById('video-container').classList.add('hidden');
     document.getElementById('menu').classList.remove('hidden');
@@ -40,11 +40,12 @@ function startCamera() {
     });
 }
 
+// 4. Dish Data & AI Logic
 const dishes = {
-    chicken: { name: 'Chicken Pad Krapow', img: 'images/chicken-pad-krapow.jpg', desc: 'Street-style minced chicken with holy basil.' },
-    pork:    { name: 'Pork Pad Krapow', img: 'images/pork-pad-krapow.jpg', desc: 'Savory pork mince with peppery basil notes.' },
-    beef:    { name: 'Beef Pad Krapow', img: 'images/beef-pad-krapow.jpg', desc: 'Seared beef strips with a bold soy glaze.' },
-    tofu:    { name: 'Tofu Pad Krapow', img: 'images/tofu-pad-krapow.jpg', desc: 'Crispy tofu and mushrooms for a classic vegetarian bite.' }
+    chicken: { name: 'Chicken Pad Krapow', img: 'images/chicken-pad-krapow.jpg', desc: 'Minced chicken with spicy holy basil.' },
+    pork:    { name: 'Pork Pad Krapow', img: 'images/pork-pad-krapow.jpg', desc: 'Crispy pork mince with authentic herbs.' },
+    beef:    { name: 'Beef Pad Krapow', img: 'images/beef-pad-krapow.jpg', desc: 'Bold beef strips seared at high heat.' },
+    tofu:    { name: 'Tofu Pad Krapow', img: 'images/tofu-pad-krapow.jpg', desc: 'Golden tofu with king oyster mushrooms.' }
 };
 
 async function predict() {
@@ -52,27 +53,30 @@ async function predict() {
         lastVideoTime = webcam.currentTime;
         const results = handLandmarker.detectForVideo(webcam, performance.now());
         if (results.landmarks && results.landmarks.length > 0) {
-            const tip = results.landmarks[0][8]; // Index finger
+            const tip = results.landmarks[0][8]; // Index finger tip
             const x = (1 - tip.x) * window.innerWidth;
             const y = tip.y * window.innerHeight;
             cursor.style.left = `${x}px`;
             cursor.style.top = `${y}px`;
             
-            const el = document.elementFromPoint(x, y);
-            if (el && (el.classList.contains('menu-opt') || el.closest('.menu-opt'))) {
-                const target = el.closest('.menu-opt');
-                const val = target.getAttribute('data-val');
-                updateDishDisplay(val);
-            }
+            checkMenuHover(x, y);
         }
     }
     window.requestAnimationFrame(predict);
 }
 
-function updateDishDisplay(val) {
-    const area = document.getElementById('display-area');
-    document.getElementById('dish-image').src = dishes[val].img;
-    document.getElementById('selected-dish-title').innerText = dishes[val].name;
-    document.getElementById('dish-desc').innerText = dishes[val].desc;
-    area.classList.remove('hidden');
+function checkMenuHover(x, y) {
+    const el = document.elementFromPoint(x, y);
+    document.querySelectorAll('.menu-opt').forEach(btn => btn.classList.remove('hovering'));
+    
+    if (el && el.classList.contains('menu-opt')) {
+        el.classList.add('hovering');
+        const dish = el.getAttribute('data-val');
+        
+        // Show dish preview
+        document.getElementById('dish-image').src = dishes[dish].img;
+        document.getElementById('selected-dish-title').innerText = dishes[dish].name;
+        document.getElementById('dish-desc').innerText = dishes[dish].desc;
+        document.getElementById('display-area').classList.remove('hidden');
+    }
 }
