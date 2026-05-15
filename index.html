@@ -19,9 +19,8 @@
     </div>
 
     <div id="video-container" class="hidden">
-        <video id="reveal-video" width="100%" playsinline>
+        <video id="main-video" width="100%" playsinline>
             <source src="videos/thai-beach-reveal.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
     </div>
 
@@ -32,8 +31,7 @@
         </div>
 
         <div class="menu-card">
-            <img src="images/petes-pad-krapow-menu.png" id="main-menu-graphic" alt="Pete's Pad Krapow Menu">
-            
+            <img src="images/petes-pad-krapow-menu.png" id="main-menu-graphic" alt="Menu">
             <div class="options-overlay">
                 <button class="menu-opt" data-val="chicken">Chicken</button>
                 <button class="menu-opt" data-val="pork">Pork</button>
@@ -43,10 +41,10 @@
 
             <div id="display-area" class="hidden">
                 <div class="dish-reveal-card">
-                    <img id="dish-image" src="" alt="Dish Selection Preview">
+                    <img id="dish-image" src="" alt="Dish Preview">
                     <h2 id="selected-dish-title" class="glow-text"></h2>
                     <p id="dish-desc"></p>
-                    <button class="close-btn" onclick="document.getElementById('display-area').classList.add('hidden')">Back to Menu</button>
+                    <button class="close-btn" onclick="document.getElementById('display-area').classList.add('hidden')">Back</button>
                 </div>
             </div>
         </div>
