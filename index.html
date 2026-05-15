@@ -24,6 +24,8 @@
     </div>
 
     <section id="menu" class="hidden">
+        <div class="landscape-bg"></div>
+
         <div id="camera-preview">
             <video id="webcam" autoplay playsinline></video>
             <div id="virtual-cursor"></div>
@@ -31,18 +33,17 @@
 
         <div class="desktop-menu-layout">
             <div class="menu-graphic-side">
-                <img src="images/petes-pad-krapow-menu.png" id="menu-base" alt="Pete's Pad Krapow Menu">
-                
+                <img src="images/petes-pad-krapow-menu.png" id="menu-base" alt="Pete's Menu">
                 <ul id="dish-list">
-                    <li class="menu-opt" id="opt-chicken" data-val="chicken">Chicken Pad Krapow</li>
-                    <li class="menu-opt" id="opt-pork" data-val="pork">Pork Pad Krapow</li>
-                    <li class="menu-opt" id="opt-beef" data-val="beef">Beef Pad Krapow</li>
-                    <li class="menu-opt" id="opt-tofu" data-val="tofu">Tofu Pad Krapow</li>
+                    <li class="menu-opt" data-val="chicken">Chicken Pad Krapow</li>
+                    <li class="menu-opt" data-val="pork">Pork Pad Krapow</li>
+                    <li class="menu-opt" data-val="beef">Beef Pad Krapow</li>
+                    <li class="menu-opt" data-val="tofu">Tofu Pad Krapow</li>
                 </ul>
             </div>
 
             <div id="image-display-container">
-                <div id="status-message">Select a dish to view your selection</div>
+                <div id="status-message">Hover or click to view your dish</div>
             </div>
         </div>
     </section>
