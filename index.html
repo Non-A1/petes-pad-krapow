@@ -31,28 +31,22 @@
         </div>
 
         <div class="menu-card">
-            <h2 class="menu-title">Chef Pete's Signature Menu</h2>
-            <p class="menu-subtitle">Hover your finger over a dish to select</p>
+            <img src="images/petes-pad-krapow-menu.png" id="main-menu-graphic" alt="Pete's Menu">
             
-            <div class="options">
-                <button class="menu-opt" data-val="chicken">
-                    <span class="dish-label">Chicken Pad Krapow</span>
-                </button>
-                <button class="menu-opt" data-val="pork">
-                    <span class="dish-label">Pork Pad Krapow</span>
-                </button>
-                <button class="menu-opt" data-val="beef">
-                    <span class="dish-label">Beef Pad Krapow</span>
-                </button>
-                <button class="menu-opt" data-val="tofu">
-                    <span class="dish-label">Tofu Pad Krapow</span>
-                </button>
+            <div class="options-overlay">
+                <button class="menu-opt" data-val="chicken">Chicken</button>
+                <button class="menu-opt" data-val="pork">Pork</button>
+                <button class="menu-opt" data-val="beef">Beef</button>
+                <button class="menu-opt" data-val="tofu">Tofu</button>
             </div>
 
             <div id="display-area" class="hidden">
-                <img id="dish-image" src="" alt="Selected Thai Dish">
-                <h3 id="selected-dish-title" class="glow-text"></h3>
-                <p id="dish-desc"></p>
+                <div class="dish-reveal-card">
+                    <img id="dish-image" src="" alt="Dish Preview">
+                    <h2 id="selected-dish-title" class="glow-text"></h2>
+                    <p id="dish-desc"></p>
+                    <button onclick="document.getElementById('display-area').classList.add('hidden')">Close</button>
+                </div>
             </div>
         </div>
     </section>
