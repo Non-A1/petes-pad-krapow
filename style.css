@@ -9,7 +9,7 @@ body, html {
     background-color: var(--charcoal);
     color: var(--smoke);
     font-family: 'Montserrat', sans-serif;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .hidden { display: none !important; }
@@ -29,6 +29,7 @@ body, html {
     position: absolute; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     background: rgba(0,0,0,0.5); z-index: 10;
+    transition: opacity 0.8s;
 }
 
 #enter-btn {
@@ -38,28 +39,34 @@ body, html {
 
 #enter-btn:hover { background: var(--gold); color: black; }
 
-/* VIDEO */
+/* VIDEO LAYER */
 #video-container {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; z-index: 50;
 }
 
 #reveal-video { width: 100%; height: 100%; object-fit: cover; }
 
-/* MENU & GESTURE UI */
-.menu-card {
-    max-width: 900px; margin: 40px auto; padding: 30px;
-    background: rgba(20, 20, 20, 0.95); border: 1px solid var(--gold); text-align: center;
+/* MENU SECTION */
+#menu {
+    height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 
-.options { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 20px 0; }
+#main-menu-graphic {
+    width: 100%; max-width: 800px; border: 2px solid var(--gold); border-radius: 8px;
+}
+
+.options-overlay {
+    display: flex; justify-content: center; gap: 15px; margin-top: 20px;
+}
 
 .menu-opt {
-    background: #222; border: 1px solid #444; color: white;
-    padding: 20px; width: 200px; cursor: pointer; transition: 0.3s;
+    background: rgba(0,0,0,0.8); border: 1px solid var(--gold); color: white;
+    padding: 10px 20px; cursor: pointer; transition: 0.3s;
 }
 
-.menu-opt.hovering { border-color: var(--gold); transform: scale(1.05); }
+.menu-opt.hovering { background: var(--gold); color: black; transform: scale(1.1); }
 
+/* GESTURE UI */
 #camera-preview {
     position: fixed; bottom: 20px; right: 20px; width: 150px; height: 150px;
     border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; transform: scaleX(-1);
@@ -72,6 +79,16 @@ body, html {
     border-radius: 50%; pointer-events: none; z-index: 1000;
 }
 
-#dish-image { width: 100%; max-width: 500px; border-radius: 10px; margin-top: 20px; }
+/* DISH PREVIEW POPUP */
+#display-area {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); z-index: 2000; display: flex; align-items: center; justify-content: center;
+}
+
+.dish-reveal-card {
+    background: #111; padding: 30px; border: 2px solid var(--gold); text-align: center; max-width: 500px;
+}
+
+#dish-image { width: 100%; border-radius: 8px; margin-bottom: 15px; }
 
 .glow-text { font-family: 'Playfair Display', serif; text-shadow: 0 0 10px var(--gold); }
