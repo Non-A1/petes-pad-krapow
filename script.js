@@ -47,7 +47,7 @@ mainVideo.onended = () => {
 function masterSelect(key) {
     const dish = dishData[key];
     if (!dish) return;
-    displayContainer.innerHTML = `<img src="${dish.path}" alt="${dish.name}"><h2 class="glow-text" style="color:var(--gold); margin-top:15px;">${dish.name}</h2>`;
+    displayContainer.innerHTML = `<img src="${dish.path}" alt="${dish.name}"><h2 style="color:var(--gold); font-size:1.4rem;">${dish.name}</h2>`;
 }
 
 document.querySelectorAll('.menu-opt').forEach(item => {
