@@ -1,21 +1,102 @@
-:root { --gold: #d4af37; --charcoal: #0a0a0a; --smoke: #f4f4f4; }
-body, html { margin: 0; padding: 0; background: var(--charcoal); color: var(--smoke); font-family: 'Montserrat', sans-serif; overflow: hidden; }
+:root {
+    --gold: #d4af37;
+    --charcoal: #0a0a0a;
+}
+
+body, html {
+    margin: 0; padding: 0;
+    background-color: var(--charcoal);
+    color: #f4f4f4;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+}
+
 .hidden { display: none !important; }
 
-/* STAGE 1 */
-#door-container { position: fixed; width: 100vw; height: 100vh; z-index: 100; }
-.storefront-bg { position: absolute; width: 100%; height: 100%; background: #111 url('images/storefront.jpg') no-repeat center center/cover; z-index: 1; }
-.door-overlay { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); z-index: 10; }
-#enter-btn { background: transparent; border: 2px solid var(--gold); color: var(--gold); padding: 15px 40px; cursor: pointer; z-index: 20; }
+/* ENTRANCE & VIDEO */
+#door-container, #video-container { position: fixed; width: 100vw; height: 100vh; z-index: 100; }
+.storefront-bg { width: 100%; height: 100%; background: url('images/storefront.jpg') center/cover; }
+.door-overlay { position: absolute; top: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); }
 
-/* STAGE 2 */
-#video-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; z-index: 50; }
-#main-video { width: 100%; height: 100%; object-fit: cover; }
+/* DESKTOP INTERACTIVE LAYOUT */
+.desktop-menu-layout {
+    display: flex;
+    width: 95vw;
+    height: 85vh;
+    margin: 7vh auto;
+    gap: 20px;
+}
 
-/* STAGE 3 */
-#menu { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 40; }
-#camera-preview { position: fixed; bottom: 20px; right: 20px; width: 150px; height: 150px; border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; transform: scaleX(-1); z-index: 999; }
-#webcam { height: 100%; }
-#virtual-cursor { position: fixed; width: 15px; height: 15px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 1000; }
-.menu-opt.hovering { background: var(--gold); color: black; transform: scale(1.1); transition: 0.3s; }
-.glow-text { font-family: 'Playfair Display', serif; text-shadow: 0 0 10px var(--gold); }
+.menu-graphic-side {
+    flex: 1;
+    position: relative;
+    background: #1a1a1a;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#menu-base {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.8;
+}
+
+/* INTERACTIVE LIST OVERLAY */
+#dish-list {
+    position: absolute;
+    top: 25%; /* Adjust based on where "Selections" start on your PNG */
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.menu-opt {
+    padding: 15px;
+    margin: 5px 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--gold);
+    transition: all 0.3s ease;
+    text-shadow: 2px 2px 4px black;
+}
+
+.menu-opt:hover, .menu-opt.hovering {
+    background: rgba(212, 175, 55, 0.2);
+    transform: scale(1.1);
+    color: #fff;
+}
+
+/* IMAGE DISPLAY CONTAINER (MASTER SELECT) */
+#image-display-container {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#image-display-container img {
+    max-width: 100%;
+    max-height: 70%;
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* GESTURE COMPONENTS */
+#camera-preview { position: fixed; bottom: 20px; right: 20px; width: 150px; height: 150px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; transform: scaleX(-1); }
+#virtual-cursor { position: fixed; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 1000; box-shadow: 0 0 10px var(--gold); }
