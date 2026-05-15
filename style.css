@@ -13,40 +13,43 @@ body, html {
 
 .hidden { display: none !important; }
 
-/* ENTRANCE & VIDEO */
+/* STAGE 1 & 2 */
 #door-container, #video-container { position: fixed; width: 100vw; height: 100vh; z-index: 100; }
 .storefront-bg { width: 100%; height: 100%; background: url('images/storefront.jpg') center/cover; }
 .door-overlay { position: absolute; top: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); }
 
-/* DESKTOP INTERACTIVE LAYOUT */
+/* STAGE 3: MENU PAGE LANDSCAPE */
+.landscape-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/thai-landscape.jpg') no-repeat center center/cover;
+    z-index: -1; /* Sits behind everything in the section */
+}
+
 .desktop-menu-layout {
     display: flex;
-    width: 95vw;
-    height: 85vh;
-    margin: 7vh auto;
-    gap: 20px;
+    width: 90vw;
+    height: 80vh;
+    margin: 10vh auto;
+    gap: 30px;
+    z-index: 10;
 }
 
 .menu-graphic-side {
     flex: 1;
     position: relative;
-    background: #1a1a1a;
+    background: rgba(26, 26, 26, 0.85);
     border: 2px solid var(--gold);
-    border-radius: 10px;
-    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-#menu-base {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    opacity: 0.8;
-}
+#menu-base { width: 100%; height: 100%; object-fit: contain; }
 
-/* INTERACTIVE LIST OVERLAY */
 #dish-list {
     position: absolute;
-    top: 25%; /* Adjust based on where "Selections" start on your PNG */
+    top: 28%; /* Aligns with the "Selections" area of your menu PNG */
     width: 100%;
     list-style: none;
     padding: 0;
@@ -54,49 +57,43 @@ body, html {
 }
 
 .menu-opt {
-    padding: 15px;
-    margin: 5px 0;
-    font-size: 1.4rem;
+    padding: 12px;
+    font-size: 1.5rem;
     font-weight: 700;
     cursor: pointer;
-    color: var(--gold);
-    transition: all 0.3s ease;
-    text-shadow: 2px 2px 4px black;
+    color: #fff;
+    transition: 0.3s;
+    text-shadow: 2px 2px 5px #000;
 }
 
 .menu-opt:hover, .menu-opt.hovering {
-    background: rgba(212, 175, 55, 0.2);
-    transform: scale(1.1);
-    color: #fff;
+    background: rgba(212, 175, 55, 0.3);
+    color: var(--gold);
+    transform: scale(1.05);
 }
 
-/* IMAGE DISPLAY CONTAINER (MASTER SELECT) */
+/* MASTER SELECT DISPLAY */
 #image-display-container {
     flex: 1;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(10, 10, 10, 0.9);
     border: 2px solid var(--gold);
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 #image-display-container img {
-    max-width: 100%;
+    max-width: 90%;
     max-height: 70%;
     border-radius: 8px;
+    margin-bottom: 20px;
     border: 1px solid var(--gold);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-    animation: slideIn 0.4s ease-out;
 }
 
-@keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* GESTURE COMPONENTS */
+/* GESTURE CAMERA */
 #camera-preview { position: fixed; bottom: 20px; right: 20px; width: 150px; height: 150px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; transform: scaleX(-1); }
-#virtual-cursor { position: fixed; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 1000; box-shadow: 0 0 10px var(--gold); }
+#virtual-cursor { position: fixed; width: 15px; height: 15px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 1000; }
