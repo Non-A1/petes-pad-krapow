@@ -9,8 +9,7 @@ const cursor = document.getElementById("virtual-cursor");
 let handLandmarker;
 let lastVideoTime = -1;
 
-// CONCEPT: MAP IDs TO PICTURE PATHS
-const dishAssets = {
+const dishData = {
     chicken: { name: "Chicken Pad Krapow", path: "images/chicken.jpg" },
     pork:    { name: "Pork Pad Krapow", path: "images/pork.jpg" },
     beef:    { name: "Beef Pad Krapow", path: "images/beef.jpg" },
@@ -26,7 +25,6 @@ async function initAI() {
 }
 initAI();
 
-// STEP: CINEMATIC CHAIN
 enterBtn.addEventListener('click', () => {
     document.getElementById('bg-music').play();
     document.getElementById('door-container').classList.add('hidden');
@@ -46,33 +44,16 @@ mainVideo.onended = () => {
     }
 };
 
-// CONCEPT: THE MASTER SELECT FUNCTION (Clear and Display)
 function masterSelect(key) {
-    const data = dishAssets[key];
-    if (!data) return;
-
-    // Clear
-    displayContainer.innerHTML = "";
-
-    // Display
-    const img = document.createElement("img");
-    img.src = data.path;
-    img.alt = data.name;
-
-    const title = document.createElement("h2");
-    title.innerText = data.name;
-    title.className = "glow-text";
-
-    displayContainer.appendChild(img);
-    displayContainer.appendChild(title);
+    const dish = dishData[key];
+    if (!dish) return;
+    displayContainer.innerHTML = `<img src="${dish.path}" alt="${dish.name}"><h2 class="glow-text">${dish.name}</h2>`;
 }
 
-// ENABLE CLICKS for Desktop Mouse users
 document.querySelectorAll('.menu-opt').forEach(item => {
     item.addEventListener('click', () => masterSelect(item.getAttribute('data-val')));
 });
 
-// GESTURE INITIALIZATION
 function startCamera() {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         webcam.srcObject = stream;
@@ -84,21 +65,17 @@ async function predict() {
     if (webcam.currentTime !== lastVideoTime) {
         lastVideoTime = webcam.currentTime;
         const results = handLandmarker.detectForVideo(webcam, performance.now());
-        
         if (results.landmarks && results.landmarks.length > 0) {
-            const tip = results.landmarks[0][8]; // Index finger tip
+            const tip = results.landmarks[0][8];
             const x = (1 - tip.x) * window.innerWidth;
             const y = tip.y * window.innerHeight;
-            
             cursor.style.left = `${x}px`;
             cursor.style.top = `${y}px`;
-            
-            const elementUnderCursor = document.elementFromPoint(x, y);
-            document.querySelectorAll('.menu-opt').forEach(li => li.classList.remove('hovering'));
-            
-            if (elementUnderCursor && elementUnderCursor.classList.contains('menu-opt')) {
-                elementUnderCursor.classList.add('hovering');
-                masterSelect(elementUnderCursor.getAttribute('data-val'));
+            const el = document.elementFromPoint(x, y);
+            document.querySelectorAll('.menu-opt').forEach(b => b.classList.remove('hovering'));
+            if (el && el.classList.contains('menu-opt')) {
+                el.classList.add('hovering');
+                masterSelect(el.getAttribute('data-val'));
             }
         }
     }
