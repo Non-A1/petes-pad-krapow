@@ -10,7 +10,6 @@
 </head>
 <body>
 
-    <!-- STAGE 1: THE STOREFRONT -->
     <div id="door-container">
         <div class="storefront-bg"></div> 
         <div class="door-overlay">
@@ -19,14 +18,12 @@
         </div>
     </div>
 
-    <!-- STAGE 2: BEACH REVEAL VIDEO -->
     <div id="video-container" class="hidden">
         <video id="reveal-video" width="100%" playsinline>
             <source src="videos/thai-beach-reveal.mp4" type="video/mp4">
         </video>
     </div>
 
-    <!-- STAGE 3: INTERACTIVE MENU -->
     <section id="menu" class="hidden">
         <div id="camera-preview">
             <video id="webcam" autoplay playsinline></video>
@@ -34,20 +31,28 @@
         </div>
 
         <div class="menu-card">
-            <h2 class="menu-title">Chef Pete's Menu</h2>
-            <div class="selection-group">
-                <h3>Select Your Protein</h3>
-                <div class="options">
-                    <button class="menu-opt" data-type="protein" data-val="chicken">Chicken</button>
-                    <button class="menu-opt" data-type="protein" data-val="pork">Pork</button>
-                    <button class="menu-opt" data-type="protein" data-val="beef">Beef</button>
-                    <button class="menu-opt" data-type="protein" data-val="tofu">Tofu (Vegetarian)</button>
-                </div>
+            <h2 class="menu-title">Chef Pete's Signature Menu</h2>
+            <p class="menu-subtitle">Hover your finger over a dish to select</p>
+            
+            <div class="options">
+                <button class="menu-opt" data-val="chicken">
+                    <span class="dish-label">Chicken Pad Krapow</span>
+                </button>
+                <button class="menu-opt" data-val="pork">
+                    <span class="dish-label">Pork Pad Krapow</span>
+                </button>
+                <button class="menu-opt" data-val="beef">
+                    <span class="dish-label">Beef Pad Krapow</span>
+                </button>
+                <button class="menu-opt" data-val="tofu">
+                    <span class="dish-label">Tofu Pad Krapow</span>
+                </button>
             </div>
 
             <div id="display-area" class="hidden">
-                <img id="dish-image" src="" alt="Selected Dish">
-                <p id="dish-desc" class="glow-text"></p>
+                <img id="dish-image" src="" alt="Selected Thai Dish">
+                <h3 id="selected-dish-title" class="glow-text"></h3>
+                <p id="dish-desc"></p>
             </div>
         </div>
     </section>
