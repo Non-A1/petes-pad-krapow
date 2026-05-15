@@ -67,29 +67,66 @@ body, html {
 
 #menu-base { width: 100%; height: 100%; object-fit: contain; }
 
-/* TEXT FIX: Adjusted size and wrapping */
+/* DISH LIST - ADJUSTED 3 LINES DOWN */
 #dish-list {
-    position: absolute; top: 25%; width: 100%; list-style: none; padding: 0; margin: 0; text-align: center;
+    position: absolute; 
+    top: 25%; 
+    margin-top: 3.5rem; /* This pushes the text down exactly as requested */
+    width: 100%; 
+    list-style: none; 
+    padding: 0; 
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
 }
 
 .menu-opt {
-    padding: 8px 12px; margin: 4px auto;
+    padding: 8px 12px; 
+    margin: 4px auto;
     font-size: 1.0rem; 
-    font-weight: 700; cursor: pointer; color: #fff;
-    text-shadow: 1px 1px 3px #000; transition: 0.2s;
+    font-weight: 700; 
+    cursor: pointer; 
+    color: #fff;
+    text-shadow: 1px 1px 3px #000; 
+    transition: 0.2s;
     max-width: 80%;
 }
 
-.menu-opt:hover, .menu-opt.hovering { color: var(--gold); background: rgba(212, 175, 55, 0.15); transform: scale(1.05); }
+.menu-opt:hover, .menu-opt.hovering { 
+    color: var(--gold); 
+    background: rgba(212, 175, 55, 0.15); 
+    transform: scale(1.05); 
+}
 
+/* MASTER SELECT DISPLAY PANEL */
 #image-display-container {
     flex: 1; background: rgba(10, 10, 10, 0.9);
     border: 2px solid var(--gold); border-radius: 10px;
     display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px;
 }
 
-#image-display-container img { max-width: 85%; max-height: 60%; border: 1px solid var(--gold); border-radius: 5px; }
+#image-display-container img { 
+    max-width: 85%; 
+    max-height: 60%; 
+    border: 1px solid var(--gold); 
+    border-radius: 5px; 
+}
 
-#camera-preview { position: fixed; bottom: 20px; right: 20px; width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; transform: scaleX(-1); }
-#virtual-cursor { position: fixed; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 5555; }
-.glow-text { font-family: 'Playfair Display', serif; text-shadow: 0 0 10px var(--gold); }
+/* CAMERA AND GESTURE UI */
+#camera-preview { 
+    position: fixed; bottom: 20px; right: 20px; 
+    width: 120px; height: 120px; 
+    border-radius: 50%; border: 2px solid var(--gold); 
+    overflow: hidden; transform: scaleX(-1); 
+}
+
+#virtual-cursor { 
+    position: fixed; width: 12px; height: 12px; 
+    background: var(--gold); border-radius: 50%; 
+    pointer-events: none; z-index: 5555; 
+}
+
+.glow-text { 
+    font-family: 'Playfair Display', serif; 
+    text-shadow: 0 0 10px var(--gold); 
+}
