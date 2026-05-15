@@ -8,6 +8,7 @@ const cursor = document.getElementById("virtual-cursor");
 let handLandmarker;
 let lastVideoTime = -1;
 
+// Initialize AI
 async function initMediaPipe() {
     const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm");
     handLandmarker = await HandLandmarker.createFromOptions(vision, {
@@ -17,7 +18,7 @@ async function initMediaPipe() {
 }
 initMediaPipe();
 
-// 1. Enter Button Sequence
+// Step 1: Click Enter -> Play Video
 enterBtn.addEventListener('click', () => {
     document.getElementById('bg-music').play();
     document.getElementById('door-container').classList.add('hidden');
@@ -25,50 +26,53 @@ enterBtn.addEventListener('click', () => {
     revealVideo.play();
 });
 
-// 2. Video End -> Menu Reveal
+// Step 2: Video Ends -> Show Menu
 revealVideo.onended = () => {
     document.getElementById('video-container').classList.add('hidden');
     document.getElementById('menu').classList.remove('hidden');
-    startHandTracking();
+    startCamera();
 };
 
-function startHandTracking() {
+function startCamera() {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
         webcam.srcObject = stream;
         webcam.addEventListener("loadeddata", predict);
     });
 }
 
+const dishes = {
+    chicken: { name: 'Chicken Pad Krapow', img: 'images/chicken-pad-krapow.jpg', desc: 'Street-style minced chicken with holy basil.' },
+    pork:    { name: 'Pork Pad Krapow', img: 'images/pork-pad-krapow.jpg', desc: 'Savory pork mince with peppery basil notes.' },
+    beef:    { name: 'Beef Pad Krapow', img: 'images/beef-pad-krapow.jpg', desc: 'Seared beef strips with a bold soy glaze.' },
+    tofu:    { name: 'Tofu Pad Krapow', img: 'images/tofu-pad-krapow.jpg', desc: 'Crispy tofu and mushrooms for a classic vegetarian bite.' }
+};
+
 async function predict() {
     if (webcam.currentTime !== lastVideoTime) {
         lastVideoTime = webcam.currentTime;
         const results = handLandmarker.detectForVideo(webcam, performance.now());
         if (results.landmarks && results.landmarks.length > 0) {
-            const tip = results.landmarks[0][8];
+            const tip = results.landmarks[0][8]; // Index finger
             const x = (1 - tip.x) * window.innerWidth;
             const y = tip.y * window.innerHeight;
             cursor.style.left = `${x}px`;
             cursor.style.top = `${y}px`;
-            checkSelection(x, y);
+            
+            const el = document.elementFromPoint(x, y);
+            if (el && (el.classList.contains('menu-opt') || el.closest('.menu-opt'))) {
+                const target = el.closest('.menu-opt');
+                const val = target.getAttribute('data-val');
+                updateDishDisplay(val);
+            }
         }
     }
     window.requestAnimationFrame(predict);
 }
 
-const dishes = {
-    chicken: { img: 'images/chicken-pad-krapow.jpg', desc: 'Minced Chicken with Holy Basil' },
-    pork:    { img: 'images/pork-pad-krapow.jpg',    desc: 'Crispy Sizzled Pork Mince' },
-    beef:    { img: 'images/beef-pad-krapow.jpg',    desc: 'Bold Beef Strips with High-Heat Sear' },
-    tofu:    { img: 'images/tofu-pad-krapow.jpg',    desc: 'Golden Tofu with King Oyster Mushrooms' }
-};
-
-let hoverTimer;
-function checkSelection(x, y) {
-    const el = document.elementFromPoint(x, y);
-    if (el && el.classList.contains('menu-opt')) {
-        const protein = el.getAttribute('data-val');
-        document.getElementById('dish-image').src = dishes[protein].img;
-        document.getElementById('dish-desc').innerText = dishes[protein].desc;
-        document.getElementById('display-area').classList.remove('hidden');
-    }
+function updateDishDisplay(val) {
+    const area = document.getElementById('display-area');
+    document.getElementById('dish-image').src = dishes[val].img;
+    document.getElementById('selected-dish-title').innerText = dishes[val].name;
+    document.getElementById('dish-desc').innerText = dishes[val].desc;
+    area.classList.remove('hidden');
 }
