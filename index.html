@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pete's Pad Krapow | Interactive Experience</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
@@ -30,30 +29,25 @@
             <div id="virtual-cursor"></div>
         </div>
 
-        <div class="menu-card">
-            <img src="images/petes-pad-krapow-menu.png" id="main-menu-graphic" alt="Menu">
-            <div class="options-overlay">
-                <button class="menu-opt" data-val="chicken">Chicken</button>
-                <button class="menu-opt" data-val="pork">Pork</button>
-                <button class="menu-opt" data-val="beef">Beef</button>
-                <button class="menu-opt" data-val="tofu">Tofu</button>
+        <div class="desktop-menu-layout">
+            <div class="menu-graphic-side">
+                <img src="images/petes-pad-krapow-menu.png" id="menu-base" alt="Pete's Pad Krapow Menu">
+                
+                <ul id="dish-list">
+                    <li class="menu-opt" id="opt-chicken" data-val="chicken">Chicken Pad Krapow</li>
+                    <li class="menu-opt" id="opt-pork" data-val="pork">Pork Pad Krapow</li>
+                    <li class="menu-opt" id="opt-beef" data-val="beef">Beef Pad Krapow</li>
+                    <li class="menu-opt" id="opt-tofu" data-val="tofu">Tofu Pad Krapow</li>
+                </ul>
             </div>
 
-            <div id="display-area" class="hidden">
-                <div class="dish-reveal-card">
-                    <img id="dish-image" src="" alt="Dish Preview">
-                    <h2 id="selected-dish-title" class="glow-text"></h2>
-                    <p id="dish-desc"></p>
-                    <button class="close-btn" onclick="document.getElementById('display-area').classList.add('hidden')">Back</button>
-                </div>
+            <div id="image-display-container">
+                <div id="status-message">Select a dish to view your selection</div>
             </div>
         </div>
     </section>
 
-    <audio id="bg-music" loop>
-        <source src="audio/thai-ambient.mp3" type="audio/mpeg">
-    </audio>
-
+    <audio id="bg-music" loop><source src="audio/thai-ambient.mp3" type="audio/mpeg"></audio>
     <script type="module" src="script.js"></script>
 </body>
 </html>
