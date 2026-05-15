@@ -1,5 +1,6 @@
 :root {
     --gold: #d4af37;
+    --thai-yellow: #FFD700; /* Bright Golden Yellow for selections */
     --charcoal: #0a0a0a;
 }
 
@@ -13,7 +14,7 @@ body, html {
 
 .hidden { display: none !important; }
 
-/* STAGE 1: STOREFRONT - HIGHEST Z-INDEX ON LOAD */
+/* STAGE 1: STOREFRONT */
 #door-container { 
     z-index: 9000; 
     position: fixed; 
@@ -67,35 +68,36 @@ body, html {
 
 #menu-base { width: 100%; height: 100%; object-fit: contain; }
 
-/* DISH LIST - ADJUSTED 2 LINES DOWN */
+/* DISH LIST - POSITIONED & STYLED */
 #dish-list {
     position: absolute; 
     top: 25%; 
-    margin-top: 2.5rem; /* This pushes the text down exactly as requested */
+    margin-top: 2.5rem; 
     width: 100%; 
     list-style: none; 
     padding: 0; 
-    margin-left: 0;
-    margin-right: 0;
     text-align: center;
 }
 
 .menu-opt {
     padding: 8px 12px; 
     margin: 4px auto;
-    font-size: 1.0rem; 
+    /* THAI INSPIRED FONT STYLE */
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.2rem; 
     font-weight: 700; 
+    letter-spacing: 1px;
     cursor: pointer; 
-    color: #fff;
-    text-shadow: 1px 1px 3px #000; 
+    color: var(--thai-yellow); /* Golden Yellow Color */
+    text-shadow: 2px 2px 4px #000; 
     transition: 0.2s;
     max-width: 80%;
 }
 
 .menu-opt:hover, .menu-opt.hovering { 
-    color: var(--gold); 
-    background: rgba(212, 175, 55, 0.15); 
-    transform: scale(1.05); 
+    color: #fff; /* White highlight on hover */
+    background: rgba(255, 215, 0, 0.2); /* Faint yellow glow */
+    transform: scale(1.08); 
 }
 
 /* MASTER SELECT DISPLAY PANEL */
@@ -112,7 +114,6 @@ body, html {
     border-radius: 5px; 
 }
 
-/* CAMERA AND GESTURE UI */
 #camera-preview { 
     position: fixed; bottom: 20px; right: 20px; 
     width: 120px; height: 120px; 
@@ -122,7 +123,7 @@ body, html {
 
 #virtual-cursor { 
     position: fixed; width: 12px; height: 12px; 
-    background: var(--gold); border-radius: 50%; 
+    background: var(--thai-yellow); border-radius: 50%; 
     pointer-events: none; z-index: 5555; 
 }
 
