@@ -27,8 +27,8 @@ initAI();
 
 enterBtn.addEventListener('click', () => {
     document.getElementById('bg-music').play();
-    document.getElementById('door-container').classList.add('hidden');
-    document.getElementById('video-container').classList.remove('hidden');
+    document.getElementById('door-container').classList.add('hidden'); 
+    document.getElementById('video-container').classList.remove('hidden'); 
     mainVideo.play();
 });
 
@@ -38,8 +38,8 @@ mainVideo.onended = () => {
         mainVideo.load();
         mainVideo.play();
     } else {
-        document.getElementById('video-container').classList.add('hidden');
-        document.getElementById('menu').classList.remove('hidden');
+        document.getElementById('video-container').classList.add('hidden'); 
+        document.getElementById('menu').classList.remove('hidden'); 
         startCamera();
     }
 };
@@ -47,7 +47,7 @@ mainVideo.onended = () => {
 function masterSelect(key) {
     const dish = dishData[key];
     if (!dish) return;
-    displayContainer.innerHTML = `<img src="${dish.path}" alt="${dish.name}"><h2 style="color:var(--gold); font-size:1.4rem;">${dish.name}</h2>`;
+    displayContainer.innerHTML = `<img src="${dish.path}" alt="${dish.name}"><h2 style="color:var(--gold); font-size:1.4rem; margin-top:10px;">${dish.name}</h2>`;
 }
 
 document.querySelectorAll('.menu-opt').forEach(item => {
