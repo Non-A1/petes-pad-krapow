@@ -9,88 +9,69 @@ body, html {
     background-color: var(--charcoal);
     color: var(--smoke);
     font-family: 'Montserrat', sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .hidden { display: none !important; }
 
-/* STOREFRONT BACKGROUND */
+/* STOREFRONT */
 #door-container {
-    position: fixed; width: 100vw; height: 100vh;
-    z-index: 100;
+    position: fixed; width: 100vw; height: 100vh; z-index: 100;
 }
 
 .storefront-bg {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #222 url('images/storefront.jpg') no-repeat center center/cover;
+    position: absolute; width: 100%; height: 100%;
+    background: #111 url('images/storefront.jpg') no-repeat center center/cover;
     z-index: 1;
 }
 
 .door-overlay {
     position: absolute; width: 100%; height: 100%;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    background: rgba(0,0,0,0.4); z-index: 10;
-    transition: opacity 0.8s;
+    background: rgba(0,0,0,0.5); z-index: 10;
 }
 
 #enter-btn {
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid var(--gold);
-    color: var(--gold);
-    padding: 20px 50px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    z-index: 20;
-    transition: 0.3s;
+    background: transparent; border: 2px solid var(--gold); color: var(--gold);
+    padding: 15px 40px; font-size: 1.2rem; cursor: pointer; transition: 0.3s;
 }
 
-#enter-btn:hover {
-    background: var(--gold);
-    color: black;
-}
+#enter-btn:hover { background: var(--gold); color: black; }
 
-/* VIDEO LAYER */
+/* VIDEO */
 #video-container {
-    position: fixed; top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background: black; z-index: 50;
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; z-index: 50;
 }
 
-#reveal-video {
-    width: 100%; height: 100%;
-    object-fit: cover;
+#reveal-video { width: 100%; height: 100%; object-fit: cover; }
+
+/* MENU & GESTURE UI */
+.menu-card {
+    max-width: 900px; margin: 40px auto; padding: 30px;
+    background: rgba(20, 20, 20, 0.95); border: 1px solid var(--gold); text-align: center;
 }
 
-/* MENU & CAMERA */
+.options { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 20px 0; }
+
+.menu-opt {
+    background: #222; border: 1px solid #444; color: white;
+    padding: 20px; width: 200px; cursor: pointer; transition: 0.3s;
+}
+
+.menu-opt.hovering { border-color: var(--gold); transform: scale(1.05); }
+
 #camera-preview {
-    position: fixed; bottom: 20px; right: 20px;
-    width: 150px; height: 150px; border-radius: 50%;
-    border: 3px solid var(--gold); overflow: hidden;
-    transform: scaleX(-1); z-index: 999;
+    position: fixed; bottom: 20px; right: 20px; width: 150px; height: 150px;
+    border-radius: 50%; border: 3px solid var(--gold); overflow: hidden; transform: scaleX(-1);
 }
 
-#webcam { width: auto; height: 100%; }
+#webcam { height: 100%; }
 
 #virtual-cursor {
-    position: fixed; width: 15px; height: 15px;
-    background: var(--gold); border-radius: 50%;
-    pointer-events: none; z-index: 1000;
+    position: fixed; width: 15px; height: 15px; background: var(--gold);
+    border-radius: 50%; pointer-events: none; z-index: 1000;
 }
 
-.menu-card {
-    max-width: 800px; margin: 40px auto;
-    background: rgba(20, 20, 20, 0.95);
-    padding: 30px; border: 1px solid var(--gold);
-    text-align: center;
-}
+#dish-image { width: 100%; max-width: 500px; border-radius: 10px; margin-top: 20px; }
 
-#dish-image {
-    width: 100%; max-width: 500px; margin-top: 20px;
-    border-radius: 10px; border: 1px solid var(--gold);
-}
-
-.glow-text {
-    font-family: 'Playfair Display', serif;
-    text-shadow: 0 0 10px var(--gold);
-}
+.glow-text { font-family: 'Playfair Display', serif; text-shadow: 0 0 10px var(--gold); }
