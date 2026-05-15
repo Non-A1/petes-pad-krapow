@@ -13,43 +13,51 @@ body, html {
 
 .hidden { display: none !important; }
 
-/* STAGE 1 & 2 */
-#door-container, #video-container { position: fixed; width: 100vw; height: 100vh; z-index: 100; }
-.storefront-bg { width: 100%; height: 100%; background: url('images/storefront.jpg') center/cover; }
-.door-overlay { position: absolute; top: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0,0,0,0.5); }
+/* LAYERING LOGIC */
+#door-container { z-index: 3000; position: fixed; width: 100%; height: 100%; }
+#video-container { z-index: 2000; position: fixed; width: 100%; height: 100%; background: #000; }
+#menu { z-index: 1000; position: relative; width: 100vw; height: 100vh; }
 
-/* STAGE 3: MENU PAGE LANDSCAPE */
+/* THE BACKGROUND IMAGE FIX */
 .landscape-bg {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/thai-landscape.jpg') no-repeat center center/cover;
-    z-index: -1; /* Sits behind everything in the section */
+    position: fixed; /* Fixed ensures it stays behind the scrolling layout */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/thai-landscape.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1; /* Behind everything in the #menu section */
 }
 
+/* DESKTOP UI */
 .desktop-menu-layout {
+    position: relative;
     display: flex;
-    width: 90vw;
-    height: 80vh;
-    margin: 10vh auto;
-    gap: 30px;
+    width: 92vw;
+    height: 82vh;
+    margin: 9vh auto;
+    gap: 25px;
     z-index: 10;
 }
 
-.menu-graphic-side {
-    flex: 1;
-    position: relative;
-    background: rgba(26, 26, 26, 0.85);
+.menu-graphic-side, #image-display-container {
+    background: rgba(15, 15, 15, 0.92); /* Dark backdrop to make landscape pop */
     border: 2px solid var(--gold);
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-radius: 15px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.8);
 }
+
+.menu-graphic-side { flex: 1.2; position: relative; }
+#image-display-container { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
 
 #menu-base { width: 100%; height: 100%; object-fit: contain; }
 
 #dish-list {
     position: absolute;
-    top: 28%; /* Aligns with the "Selections" area of your menu PNG */
+    top: 28%;
     width: 100%;
     list-style: none;
     padding: 0;
@@ -57,43 +65,27 @@ body, html {
 }
 
 .menu-opt {
-    padding: 12px;
-    font-size: 1.5rem;
+    padding: 10px;
+    font-size: 1.6rem;
     font-weight: 700;
     cursor: pointer;
     color: #fff;
-    transition: 0.3s;
-    text-shadow: 2px 2px 5px #000;
+    text-shadow: 0 2px 10px #000;
+    transition: 0.2s;
 }
 
 .menu-opt:hover, .menu-opt.hovering {
-    background: rgba(212, 175, 55, 0.3);
     color: var(--gold);
-    transform: scale(1.05);
-}
-
-/* MASTER SELECT DISPLAY */
-#image-display-container {
-    flex: 1;
-    background: rgba(10, 10, 10, 0.9);
-    border: 2px solid var(--gold);
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transform: scale(1.1);
 }
 
 #image-display-container img {
     max-width: 90%;
-    max-height: 70%;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    max-height: 65%;
+    border-radius: 10px;
     border: 1px solid var(--gold);
 }
 
-/* GESTURE CAMERA */
-#camera-preview { position: fixed; bottom: 20px; right: 20px; width: 150px; height: 150px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; transform: scaleX(-1); }
-#virtual-cursor { position: fixed; width: 15px; height: 15px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 1000; }
+/* GESTURE COMPONENTS */
+#camera-preview { position: fixed; bottom: 20px; right: 20px; width: 140px; height: 140px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; transform: scaleX(-1); }
+#virtual-cursor { position: fixed; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 5000; }
