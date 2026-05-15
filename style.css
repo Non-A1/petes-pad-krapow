@@ -1,6 +1,6 @@
 :root {
     --gold: #d4af37;
-    --thai-yellow: #FFD700; /* Bright Golden Yellow for selections */
+    --thai-yellow: #FFD700;
     --charcoal: #0a0a0a;
 }
 
@@ -68,7 +68,7 @@ body, html {
 
 #menu-base { width: 100%; height: 100%; object-fit: contain; }
 
-/* DISH LIST - POSITIONED & STYLED */
+/* DISH LIST - REDUCED SPACING */
 #dish-list {
     position: absolute; 
     top: 25%; 
@@ -80,23 +80,22 @@ body, html {
 }
 
 .menu-opt {
-    padding: 8px 12px; 
-    margin: 4px auto;
-    /* THAI INSPIRED FONT STYLE */
+    padding: 4px 12px; /* Reduced vertical padding */
+    margin: 0px auto;  /* Reduced margin from 4px to 0px to decrease spacing by 1 line */
     font-family: 'Playfair Display', serif; 
     font-size: 1.2rem; 
     font-weight: 700; 
     letter-spacing: 1px;
     cursor: pointer; 
-    color: var(--thai-yellow); /* Golden Yellow Color */
+    color: var(--thai-yellow); 
     text-shadow: 2px 2px 4px #000; 
     transition: 0.2s;
     max-width: 80%;
 }
 
 .menu-opt:hover, .menu-opt.hovering { 
-    color: #fff; /* White highlight on hover */
-    background: rgba(255, 215, 0, 0.2); /* Faint yellow glow */
+    color: #fff; 
+    background: rgba(255, 215, 0, 0.2); 
     transform: scale(1.08); 
 }
 
