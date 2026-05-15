@@ -8,102 +8,88 @@ body, html {
     background-color: var(--charcoal);
     color: #f4f4f4;
     font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
 }
 
 .hidden { display: none !important; }
 
-/* LAYERING */
-#door-container { z-index: 50; position: fixed; width: 100%; height: 100%; }
-#video-container { z-index: 40; position: fixed; width: 100%; height: 100%; }
-#menu { z-index: 30; position: relative; width: 100vw; height: 100vh; overflow: hidden; }
-
-/* THE LANDSCAPE BACKGROUND FIX */
-.landscape-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    /* Using multiple backgrounds to ensure visibility */
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                url('images/thai-landscape.jpg');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    z-index: -5; /* Set to deep negative so it's behind everything in the section */
+/* STAGE 1: STOREFRONT - HIGHEST Z-INDEX ON LOAD */
+#door-container { 
+    z-index: 9000; 
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100vw; height: 100vh; 
+}
+.storefront-bg { 
+    width: 100%; height: 100%; 
+    background: url('images/storefront.jpg') no-repeat center center/cover; 
+}
+.door-overlay { 
+    position: absolute; top: 0; width: 100%; height: 100%; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    background: rgba(0,0,0,0.5); 
 }
 
-/* MENU LAYOUT */
+/* STAGE 2: VIDEO */
+#video-container { 
+    z-index: 5000; 
+    position: fixed; top: 0; left: 0; 
+    width: 100vw; height: 100vh; 
+    background: #000; 
+}
+#main-video { width: 100%; height: 100%; object-fit: cover; }
+
+/* STAGE 3: MENU PAGE & LANDSCAPE */
+#menu { 
+    z-index: 1000; 
+    position: relative; 
+    width: 100vw; height: 100vh; 
+}
+
+.landscape-bg {
+    position: fixed; top: 0; left: 0; 
+    width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('images/thai-landscape.jpg') no-repeat center center/cover;
+    z-index: -1;
+}
+
 .desktop-menu-layout {
-    display: flex;
-    width: 90%;
-    height: 80%;
-    margin: 5% auto;
-    gap: 20px;
-    position: relative;
-    z-index: 10;
+    display: flex; width: 90%; height: 80%; margin: 5% auto; gap: 20px;
+    position: relative; z-index: 10;
 }
 
 .menu-graphic-side {
-    flex: 1.2;
-    position: relative;
-    background: rgba(15, 15, 15, 0.85);
-    border: 2px solid var(--gold);
-    border-radius: 10px;
+    flex: 1.2; position: relative; 
+    background: rgba(15, 15, 15, 0.9);
+    border: 2px solid var(--gold); border-radius: 10px;
 }
 
 #menu-base { width: 100%; height: 100%; object-fit: contain; }
 
-/* DISH LIST - REDUCED FONT AND SPACING */
+/* TEXT FIX: Adjusted size and wrapping */
 #dish-list {
-    position: absolute;
-    top: 25%;
-    width: 100%;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
+    position: absolute; top: 25%; width: 100%; list-style: none; padding: 0; margin: 0; text-align: center;
 }
 
 .menu-opt {
-    padding: 8px 15px; /* Reduced padding */
-    margin: 2px auto;
-    font-size: 1.1rem; /* Smaller font to prevent overflow */
-    font-weight: 700;
-    cursor: pointer;
-    color: #fff;
-    text-shadow: 1px 1px 3px #000;
-    transition: 0.2s ease-in-out;
-    max-width: 80%; /* Limits width to prevent side-overflow */
-    line-height: 1.2;
+    padding: 8px 12px; margin: 4px auto;
+    font-size: 1.0rem; 
+    font-weight: 700; cursor: pointer; color: #fff;
+    text-shadow: 1px 1px 3px #000; transition: 0.2s;
+    max-width: 80%;
 }
 
-.menu-opt:hover, .menu-opt.hovering {
-    color: var(--gold);
-    background: rgba(212, 175, 55, 0.1);
-    transform: scale(1.05);
-}
+.menu-opt:hover, .menu-opt.hovering { color: var(--gold); background: rgba(212, 175, 55, 0.15); transform: scale(1.05); }
 
-/* DISPLAY PANEL */
 #image-display-container {
-    flex: 1;
-    background: rgba(10, 10, 10, 0.9);
-    border: 2px solid var(--gold);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
+    flex: 1; background: rgba(10, 10, 10, 0.9);
+    border: 2px solid var(--gold); border-radius: 10px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px;
 }
 
-#image-display-container img {
-    max-width: 85%;
-    max-height: 60%;
-    border: 1px solid var(--gold);
-    border-radius: 5px;
-}
+#image-display-container img { max-width: 85%; max-height: 60%; border: 1px solid var(--gold); border-radius: 5px; }
 
-/* CAMERA PREVIEW */
 #camera-preview { position: fixed; bottom: 20px; right: 20px; width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--gold); overflow: hidden; transform: scaleX(-1); }
-#virtual-cursor { position: fixed; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 1000; }
+#virtual-cursor { position: fixed; width: 12px; height: 12px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 5555; }
+.glow-text { font-family: 'Playfair Display', serif; text-shadow: 0 0 10px var(--gold); }
